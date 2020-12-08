@@ -17,13 +17,13 @@ class MenuView : View("Menu") {
 
         hbox(spacing = 10.0) {
              fieldset {
-                 vbox {
+                 hbox(spacing = 10.0) {
                     button("New Game") {
                         addClass(Styles.menuButton)
                         controller.rows = widthSet
                         controller.columns = heightSet
                     }
-                    hbox(spacing = 10.0) {
+                    vbox {
                         field("Width:") { spinner(10, 30, 20, 1, property = widthProperty) }
                         field("Height:") { spinner(10, 30, 20, 1, property = heightProperty) }
                     }
@@ -39,12 +39,12 @@ class MenuView : View("Menu") {
             }
             button("Step") {
                 addClass(Styles.menuButton)
-                controller.nextState()
+                action { controller.nextState() }
                 //TODO("Timer stop")
             }
             button("Clear") {
                 addClass(Styles.menuButton)
-                controller.clear()
+                action { controller.clear() }
             }
         }
     }

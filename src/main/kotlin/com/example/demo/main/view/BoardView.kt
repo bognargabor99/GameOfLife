@@ -2,6 +2,7 @@ package com.example.demo.main.view
 
 import com.example.demo.Styles
 import com.example.demo.main.controller.MainController
+import com.example.demo.main.model.toInt
 import javafx.geometry.Pos
 import javafx.scene.input.MouseEvent
 import tornadofx.*
@@ -9,16 +10,15 @@ import tornadofx.*
 class BoardView : View("Board") {
     private val controller: MainController by inject()
 
-    val numbers = listOf(1, 2, 3, 4, 5, 6)
-
     override val root = hbox {
         alignment = Pos.CENTER
 
         datagrid(controller.cells) {
+            alignment = Pos.CENTER
             maxCellsInRow = controller.rows
             maxRows = controller.columns
-            prefHeight = controller.rows * 20.0
-            prefWidth = controller.columns * 20.0
+            prefHeight = controller.columns * 22.0
+            prefWidth = controller.rows * 22.0
             usePrefSize = true
             addClass(Styles.lifeGrid)
 
@@ -27,12 +27,16 @@ class BoardView : View("Board") {
                     useMaxSize = true
                     addClass(Styles.lifeClass)
                     toggleClass(Styles.livingLifeClass, cell.aliveProperty)
-                    /*text("${cell.x}, ${cell.y}") {
-                        autosize()
-                    }*/
                     addEventHandler(MouseEvent.MOUSE_CLICKED) {
                         controller.performClick(cell.x, cell.y)
-                        println("Oh shit!")
+                        val lives = controller.board.toList()
+                            .map { it.alive.toInt() }
+                        println()
+                        lives.indices.forEach { i ->
+                            print(lives[i].toString())
+                            if (i % controller.rows == (controller.rows - 1))
+                                println()
+                        }
                     }
 
                 }

@@ -6,14 +6,14 @@ import javafx.collections.FXCollections
 import tornadofx.*
 
 class MainController : Controller() {
-    var board = LifeBoard(15, 10)
+    var board = LifeBoard(20, 20)
         set(value) {
             cells.clear()
             cells.addAll(value.toList())
             field = value
         }
 
-    val cells = FXCollections.observableArrayList<Cell>(board.toList())
+    val cells = FXCollections.observableArrayList(board.toList())
 
     var rows = board.height
         get() = board.height
@@ -38,9 +38,14 @@ class MainController : Controller() {
 
     fun nextState() {
         board.step()
+        cells.clear()
+        cells.addAll(board.toList())
     }
 
     fun clear() {
         board.clear()
+        cells.forEach {
+            it.alive = false
+        }
     }
 }

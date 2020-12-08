@@ -21,8 +21,10 @@ class LifeBoard(val width: Int, val height: Int) {
         this[x + 1, y    ].toInt() +
         this[x + 1, y + 1].toInt()
 
+    private fun copyBoard(): Array<Array<Cell>> = Array(width) { x -> Array(height) { y -> Cell(x, y) } }
+
     fun step() {
-        val newBoard = board.copyOf()
+        val newBoard = copyBoard()
         for (i in newBoard.indices)
             for (j in newBoard[i].indices) {
                 val count = neighboursCount(i, j)

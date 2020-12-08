@@ -6,4 +6,6 @@ import tornadofx.*
 class Cell(val x: Int, val y: Int) {
     val aliveProperty = SimpleBooleanProperty()
     var alive by aliveProperty
+
+    override fun toString(): String = alive.toString()
 }
