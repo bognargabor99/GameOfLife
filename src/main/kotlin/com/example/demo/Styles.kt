@@ -1,26 +1,49 @@
 package com.example.demo
 
-import com.sun.prism.Image
-import javafx.scene.text.FontPosture
-import javafx.scene.text.FontWeight
+import javafx.scene.paint.Color
 import tornadofx.*
 
 class Styles : Stylesheet() {
     companion object {
-        val heading by cssclass()
-        val imageViewBlack by cssclass()
+        val menuButton by cssclass()
+        val menuButtonHover by cssclass()
+        val lifeClass by cssclass()
+        val livingLifeClass by cssclass()
+        val lifeGrid by cssclass()
     }
 
     init {
-        label and heading {
-            padding = box(10.px)
-            fontSize = 20.px
-            fontWeight = FontWeight.EXTRA_LIGHT
-            fontStyle = FontPosture.ITALIC
+        menuButton {
+            backgroundColor  += c("#aaaaaa")
+            fontFamily = "Comic Sans MS"
+            and(hover) {
+                backgroundColor  += c("#dddddd")
+            }
+            and(pressed) {
+               textFill = c("white")
+            }
         }
 
-        imageViewBlack {
-            //backgroundColor +=
+        menuButtonHover {
+            backgroundColor  += c("#dddddd")
+        }
+
+        lifeClass {
+            backgroundColor += c("#dddddd")
+            borderColor += box(Color.BLACK)
+        }
+
+        livingLifeClass {
+            backgroundColor += c("#333333")
+            borderColor += box(Color.BLACK)
+        }
+
+        lifeGrid {
+            cellWidth = 20.px
+            cellHeight = 20.px
+            verticalCellSpacing = 1.px
+            horizontalCellSpacing = 1.px
+            backgroundColor += c("#ddd")
         }
     }
 }

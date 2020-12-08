@@ -24,6 +24,7 @@ repositories {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "no.tornado:tornadofx:$tornadofx_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.0"
 }
 
 mainClassName = "com.example.demo.MyApp"
