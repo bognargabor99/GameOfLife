@@ -24,27 +24,36 @@ class MenuView : View("Menu") {
                         controller.columns = heightSet
                     }
                     vbox {
-                        field("Width:") { spinner(10, 30, 20, 1, property = widthProperty) }
-                        field("Height:") { spinner(10, 30, 20, 1, property = heightProperty) }
+                        field("Width:") { spinner(5, 30, 10, 1, enableScroll = true, property = widthProperty) {addClass(Styles.menuButton)} }
+                        field("Height:") { spinner(5, 30, 10, 1, enableScroll = true, property = heightProperty){addClass(Styles.menuButton)} }
                     }
                 }
             }
             button("Start") {
                 addClass(Styles.menuButton)
-                //TODO("Timer start")
+                action {
+                    controller.lifeGoesOn = true
+                }
             }
             button("Stop") {
                 addClass(Styles.menuButton)
-                //TODO("Timer stop")
+                action {
+                    controller.lifeGoesOn = false
+                }
             }
             button("Step") {
                 addClass(Styles.menuButton)
-                action { controller.nextState() }
-                //TODO("Timer stop")
+                action {
+                    controller.lifeGoesOn = false
+                    controller.nextState()
+                }
             }
             button("Clear") {
                 addClass(Styles.menuButton)
-                action { controller.clear() }
+                action {
+                    controller.lifeGoesOn = false
+                    controller.clear()
+                }
             }
         }
     }

@@ -1,8 +1,14 @@
 package com.example.demo.main.controller
 
-import com.example.demo.main.model.Cell
 import com.example.demo.main.model.LifeBoard
+import javafx.application.Platform
+import javafx.beans.property.SimpleBooleanProperty
+import javafx.beans.property.SimpleLongProperty
 import javafx.collections.FXCollections
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import tornadofx.*
 
 class MainController : Controller() {
@@ -14,6 +20,33 @@ class MainController : Controller() {
         }
 
     val cells = FXCollections.observableArrayList(board.toList())
+
+    val lifeGoesOnProperty = SimpleBooleanProperty(false)
+    var lifeGoesOn by lifeGoesOnProperty
+
+    val delayProperty = SimpleLongProperty(10)
+    var delayRate by delayProperty
+
+    var timer = MyTimer(delayRate) {
+        nextState()
+    }
+
+    init {
+        lifeGoesOnProperty.onChange {
+            if (it) {
+                    GlobalScope.launch(Dispatchers.Main) {
+                        while (lifeGoesOn) {
+                            nextState()
+                            delay(1000)
+                        }
+                    }
+            }
+            /*when {
+                it -> timer.start()
+                else -> timer.stop()
+            }*/
+        }
+    }
 
     var rows = board.height
         get() = board.height
@@ -37,9 +70,9 @@ class MainController : Controller() {
     }
 
     fun nextState() {
-        board.step()
         cells.clear()
         cells.addAll(board.toList())
+        board.step()
     }
 
     fun clear() {

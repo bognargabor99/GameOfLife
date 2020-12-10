@@ -24,19 +24,11 @@ class BoardView : View("Board") {
 
             cellCache { cell ->
                 pane {
-                    useMaxSize = true
                     addClass(Styles.lifeClass)
                     toggleClass(Styles.livingLifeClass, cell.aliveProperty)
+
                     addEventHandler(MouseEvent.MOUSE_CLICKED) {
                         controller.performClick(cell.x, cell.y)
-                        val lives = controller.board.toList()
-                            .map { it.alive.toInt() }
-                        println()
-                        lives.indices.forEach { i ->
-                            print(lives[i].toString())
-                            if (i % controller.rows == (controller.rows - 1))
-                                println()
-                        }
                     }
 
                 }
