@@ -1,12 +1,14 @@
 package com.example.demo
 
 import javafx.scene.paint.Color
+import javafx.scene.text.FontPosture
 import tornadofx.*
 
 class Styles : Stylesheet() {
     companion object {
         val menuButton by cssclass()
         val lifeClass by cssclass()
+        val textClass by cssclass()
         val livingLifeClass by cssclass()
         val lifeGrid by cssclass()
         val spinner by cssclass()
@@ -15,9 +17,6 @@ class Styles : Stylesheet() {
     init {
         menuButton {
             backgroundColor  += c("#aaaaaa")
-            fontFamily = "Comic Sans MS"
-            //startMargin = 10.px
-            //endMargin = 10.px
             labelPadding = box(3.px)
             and(hover) {
                 backgroundColor  += c("#dddddd")
@@ -38,15 +37,20 @@ class Styles : Stylesheet() {
         }
 
         lifeGrid {
-            cellWidth = 20.px
-            cellHeight = 20.px
+            cellWidth = 18.px
+            cellHeight = 18.px
             verticalCellSpacing = 1.px
             horizontalCellSpacing = 1.px
-            backgroundColor += c("#ddd")
+            backgroundColor += c("transparent")
         }
 
         spinner {
             maxWidth = 60.px
+        }
+
+        textClass {
+            fontFamily = "Comic Sans MS"
+            fontStyle = FontPosture.ITALIC
         }
     }
 }

@@ -2,7 +2,6 @@ package com.example.demo.main.view
 
 import com.example.demo.Styles
 import com.example.demo.main.controller.MainController
-import com.example.demo.main.model.toInt
 import javafx.geometry.Pos
 import javafx.scene.input.MouseEvent
 import tornadofx.*
@@ -14,12 +13,21 @@ class BoardView : View("Board") {
         alignment = Pos.CENTER
 
         datagrid(controller.cells) {
-            alignment = Pos.CENTER
-            maxCellsInRow = controller.rows
-            maxRows = controller.columns
-            prefHeight = controller.columns * 22.0
-            prefWidth = controller.rows * 22.0
+            alignment = Pos.TOP_CENTER
+            maxRows = controller.size
+            maxCellsInRow = controller.size
+            prefHeight = controller.size * 20.0
+            prefWidth = controller.size * 20.0
+
+            items.onChange {
+                maxRows = controller.size
+                maxCellsInRow = controller.size
+                prefHeight = controller.size * 20.0
+                prefWidth = controller.size * 20.0
+            }
+
             usePrefSize = true
+
             addClass(Styles.lifeGrid)
 
             cellCache { cell ->

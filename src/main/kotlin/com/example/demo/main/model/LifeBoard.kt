@@ -1,14 +1,21 @@
 package com.example.demo.main.model
 
-class LifeBoard(val width: Int, val height: Int) {
-    var board: MutableList<MutableList<Cell>> = MutableList(width) { x -> MutableList(height) { y -> Cell(x, y) } }
 
-    operator fun get(x: Int, y: Int) : Boolean =
-        if (x in 0 until width && y in 0 until height) board[x][y].alive
+class LifeBoard(private var n: Int) {
+    private var board = MutableList(n) { x -> MutableList(n) { y -> Cell(x, y) } }
+
+    operator fun get(x: Int, y: Int) =
+        if (x in 0 until n && y in 0 until n) board[x][y].alive
         else false
 
     operator fun set(x: Int, y: Int, value: Boolean) {
-        if (x in 0 until width && y in 0 until height) board[x][y].alive = value
+        if (x in 0 until n && y in 0 until n) board[x][y].alive = value
+    }
+
+    fun newGame(newN: Int) {
+        n = newN
+        board.clear()
+        board.addAll(newBoard())
     }
 
     private fun neighboursCount(x: Int, y: Int) =
@@ -21,10 +28,10 @@ class LifeBoard(val width: Int, val height: Int) {
         this[x + 1, y    ].toInt() +
         this[x + 1, y + 1].toInt()
 
-    private fun copyBoard(): MutableList<MutableList<Cell>> = MutableList(width) { x -> MutableList(height) { y -> Cell(x, y) } }
+    private fun newBoard() = MutableList(n) { x -> MutableList(n) { y -> Cell(x, y) } }
 
     fun step() {
-        val newBoard = copyBoard()
+        val newBoard = newBoard()
         newBoard.indices.forEach { i ->
             newBoard[i].indices.forEach { j ->
                 val count = neighboursCount(i, j)
@@ -35,6 +42,7 @@ class LifeBoard(val width: Int, val height: Int) {
             }
         }
         board = newBoard
+
     }
 
     fun clear() {
