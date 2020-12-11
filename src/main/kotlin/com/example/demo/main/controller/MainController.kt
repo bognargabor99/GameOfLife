@@ -1,9 +1,9 @@
 package com.example.demo.main.controller
 
+import com.example.demo.main.model.Delay
 import com.example.demo.main.model.LifeBoard
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.property.SimpleIntegerProperty
-import javafx.beans.property.SimpleLongProperty
 import javafx.collections.FXCollections
 import tornadofx.Controller
 import tornadofx.getValue
@@ -21,7 +21,7 @@ class MainController : Controller() {
     private val lifeGoesOnProperty = SimpleBooleanProperty(false)
     var lifeGoesOn by lifeGoesOnProperty
 
-    private val delayProperty = SimpleLongProperty(1)
+    private val delayProperty = SimpleIntegerProperty(Delay.SLOW.getDelayRate())
     private var delayRate by delayProperty
 
     private var timer = MyTimer(delayRate) {
@@ -59,5 +59,9 @@ class MainController : Controller() {
         cells.forEach {
             it.alive = false
         }
+    }
+
+    fun updateDelayRate(newDelay: Int) {
+        timer.delay = newDelay
     }
 }

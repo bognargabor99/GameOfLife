@@ -24,6 +24,10 @@ class Styles : Stylesheet() {
             and(pressed) {
                textFill = c("white")
             }
+            and(selected) {
+                backgroundColor  += c("#888888")
+                textFill = c("#dddddd")
+            }
         }
 
         lifeClass {
