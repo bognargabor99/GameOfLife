@@ -4,7 +4,7 @@ import tornadofx.*
 
 class MainView : View("Game of Life") {
     override val root = borderpane {
-        center(BoardView::class)
         top(MenuView::class)
+        center(BoardView::class)
     }
 }
