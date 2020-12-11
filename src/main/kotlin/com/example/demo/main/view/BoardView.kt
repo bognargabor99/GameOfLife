@@ -19,6 +19,11 @@ class BoardView : View("Board") {
             prefHeight = controller.size * 20.0
             prefWidth = controller.size * 20.0
 
+            /**
+             * I tried to bind maxRows, maxCellsInRow, prefWidth and prefHeight properties,
+             * but I could not figure out the proper way to do it,
+             * so I added items.onChange method. It's only for resizing the table.
+             */
             items.onChange {
                 maxRows = controller.size
                 maxCellsInRow = controller.size
